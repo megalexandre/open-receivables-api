@@ -5,7 +5,7 @@ gem "rails", "~> 8.1.3"
 # Use mysql as the database for Active Record
 gem "mysql2", "~> 0.5"
 gem "pagy", "~> 9.0"
-gem "money-rails", "~> 1.15"
+gem "money-rails", "~> 3.0"
 gem "jwt", "~> 2.9"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
