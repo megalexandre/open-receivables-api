@@ -1,0 +1,19 @@
+one:
+  name: Residencial A
+  descricao: Categoria residencial padrão
+  member_type: Sócio Efetivo
+  amount_water: 50.00
+  amount_partner: 30.00
+  has_hydrometer: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  name: Residencial B
+  descricao: Categoria residencial alternativa
+  member_type: Sócio Fundador
+  amount_water: 40.00
+  amount_partner: 25.00
+  has_hydrometer: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
