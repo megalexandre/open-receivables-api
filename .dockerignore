@@ -37,6 +37,10 @@
 /config/deploy*.yml
 /.kamal
 
+# Ignore test files
+/spec/
+/test/
+
 # Ignore development files
 /.devcontainer
 
