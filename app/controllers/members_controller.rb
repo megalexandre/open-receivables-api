@@ -13,12 +13,12 @@ class MembersController < ApplicationController
   end
 
   def create
-    save_and_respond(Member.new(member_params), status: :created)
+    save_and_respond(Member.new(member_params), status: :created, serializer: MemberSerializer)
   end
 
   def update
     @member.assign_attributes(member_params)
-    save_and_respond(@member)
+    save_and_respond(@member, serializer: MemberSerializer)
   end
 
   def destroy

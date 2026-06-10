@@ -53,13 +53,13 @@ RSpec.describe 'Members', type: :request do
         expect(response).to have_http_status(:unprocessable_content)
       end
 
-      it 'retorna errors com field name e código E_2_0 ao omitir nome' do
+      it 'retorna errors com field name e código E_MEMBER_REQUIRED ao omitir nome' do
         post members_path, params: { member: { document: '12345678901' } }, as: :json
 
         errors = response.parsed_body['errors']
         expect(errors).to be_an(Array)
         expect(errors.first['field']).to eq('name')
-        expect(errors.first['code']).to eq('E_2_0')
+        expect(errors.first['code']).to eq('E_MEMBER_REQUIRED')
       end
 
       it 'retorna 422 sem document' do
@@ -117,12 +117,12 @@ RSpec.describe 'Members', type: :request do
         }.not_to change(Member, :count)
       end
 
-      it 'retorna código de erro E_2_1 com field document' do
+      it 'retorna código de erro E_MEMBER_DUPLICATED com field document' do
         post members_path, params: { member: { name: 'Outro Nome', document: '12345678901' } }, as: :json
 
         errors = response.parsed_body['errors']
         expect(errors).to be_an(Array)
-        expect(errors.first['code']).to eq('E_2_1')
+        expect(errors.first['code']).to eq('E_MEMBER_DUPLICATED')
         expect(errors.first['field']).to eq('document')
       end
     end
@@ -281,7 +281,7 @@ RSpec.describe 'Members', type: :request do
 
       body = response.parsed_body
       expect(body.keys).to match_array(%w[id name document member_number voter])
-      expect(body['id']).to eq(membro.id.to_s)
+      expect(body['id']).to eq(membro.id)
       expect(body['name']).to eq('Dona Maria')
       expect(body['document']).to eq('12300000001')
       expect(body['member_number']).to eq(7)
@@ -343,14 +343,14 @@ RSpec.describe 'Members', type: :request do
       expect(response).to have_http_status(:unprocessable_content)
     end
 
-    it 'retorna código de erro E_2_1 ao usar document duplicado' do
+    it 'retorna código de erro E_MEMBER_DUPLICATED ao usar document duplicado' do
       outro = create(:member, document: '99988877766')
 
       patch member_path(membro), params: { member: { document: outro.document } }, as: :json
 
       errors = response.parsed_body['errors']
       expect(errors).to be_an(Array)
-      expect(errors.first['code']).to eq('E_2_1')
+      expect(errors.first['code']).to eq('E_MEMBER_DUPLICATED')
       expect(errors.first['field']).to eq('document')
     end
 

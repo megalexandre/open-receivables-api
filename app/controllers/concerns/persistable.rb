@@ -3,9 +3,9 @@ module Persistable
 
   private
 
-  def save_and_respond(record, status: :ok)
+  def save_and_respond(record, status: :ok, serializer: nil)
     if record.save
-      render json: record, status: status
+      render json: (serializer ? serializer.new(record) : record), status: status
     else
       render_errors(record)
     end

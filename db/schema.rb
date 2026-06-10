@@ -10,16 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 20260609002) do
+ActiveRecord::Schema[8.1].define(version: 20260610001) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "address_type", null: false
     t.datetime "created_at"
     t.datetime "deleted_at"
     t.string "deleted_by"
     t.string "name", null: false
+    t.virtual "name_active", type: :string, as: "if((`deleted_at` is null),`name`,NULL)"
     t.text "notes"
     t.datetime "updated_at"
-    t.index ["address_type", "name"], name: "idx_address_type_name", unique: true
+    t.index ["address_type", "name_active"], name: "idx_address_type_name_active_unique", unique: true
     t.index ["deleted_at"], name: "index_addresses_on_deleted_at"
   end
 

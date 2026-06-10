@@ -62,7 +62,7 @@ RSpec.describe 'Categories', type: :request do
         expect(response).to have_http_status(:unprocessable_content)
       end
 
-      it 'retorna errors com field name e código E_1_0 ao omitir name' do
+      it 'retorna errors com field name e código E_CATEGORY_REQUIRED ao omitir name' do
         params = { category: valid_params[:category].except(:name) }
         post categories_path, params: params, as: :json
 
@@ -70,7 +70,7 @@ RSpec.describe 'Categories', type: :request do
         expect(errors).to be_an(Array)
         name_error = errors.find { |e| e['field'] == 'name' }
         expect(name_error).not_to be_nil
-        expect(name_error['code']).to eq('E_1_0')
+        expect(name_error['code']).to eq('E_CATEGORY_REQUIRED')
       end
 
       it 'retorna 422 sem member_type' do
@@ -80,14 +80,14 @@ RSpec.describe 'Categories', type: :request do
         expect(response).to have_http_status(:unprocessable_content)
       end
 
-      it 'retorna código E_1_2 com field member_type ao omitir member_type' do
+      it 'retorna código E_CATEGORY_REQUIRED com field member_type ao omitir member_type' do
         params = { category: valid_params[:category].except(:member_type) }
         post categories_path, params: params, as: :json
 
         errors = response.parsed_body['errors']
         member_type_error = errors.find { |e| e['field'] == 'member_type' }
         expect(member_type_error).not_to be_nil
-        expect(member_type_error['code']).to eq('E_1_2')
+        expect(member_type_error['code']).to eq('E_CATEGORY_REQUIRED')
       end
 
       it 'retorna 422 com member_type inválido' do
@@ -97,14 +97,14 @@ RSpec.describe 'Categories', type: :request do
         expect(response).to have_http_status(:unprocessable_content)
       end
 
-      it 'retorna código E_1_3 com field member_type para member_type inválido' do
+      it 'retorna código E_CATEGORY_INVALID com field member_type para member_type inválido' do
         params = { category: valid_params[:category].merge(member_type: 'Tipo Inexistente') }
         post categories_path, params: params, as: :json
 
         errors = response.parsed_body['errors']
         member_type_error = errors.find { |e| e['field'] == 'member_type' }
         expect(member_type_error).not_to be_nil
-        expect(member_type_error['code']).to eq('E_1_3')
+        expect(member_type_error['code']).to eq('E_CATEGORY_INVALID')
       end
     end
 
@@ -125,7 +125,7 @@ RSpec.describe 'Categories', type: :request do
         }.not_to change(Category, :count)
       end
 
-      it 'retorna código de erro E_1_1 com field name' do
+      it 'retorna código de erro E_CATEGORY_DUPLICATED com field name' do
         params = { category: valid_params[:category].merge(name: 'Duplicada') }
         post categories_path, params: params, as: :json
 
@@ -133,7 +133,7 @@ RSpec.describe 'Categories', type: :request do
         expect(errors).to be_an(Array)
         name_error = errors.find { |e| e['field'] == 'name' }
         expect(name_error).not_to be_nil
-        expect(name_error['code']).to eq('E_1_1')
+        expect(name_error['code']).to eq('E_CATEGORY_DUPLICATED')
       end
     end
   end
@@ -302,7 +302,7 @@ RSpec.describe 'Categories', type: :request do
       expect(response).to have_http_status(:unprocessable_content)
     end
 
-    it 'retorna código E_1_1 ao usar nome duplicado no mesmo member_type' do
+    it 'retorna código E_CATEGORY_DUPLICATED ao usar nome duplicado no mesmo member_type' do
       create(:category, name: 'Duplicado', member_type: categoria.member_type)
 
       patch category_path(categoria), params: { category: { name: 'Duplicado' } }, as: :json
@@ -310,7 +310,7 @@ RSpec.describe 'Categories', type: :request do
       errors = response.parsed_body['errors']
       name_error = errors.find { |e| e['field'] == 'name' }
       expect(name_error).not_to be_nil
-      expect(name_error['code']).to eq('E_1_1')
+      expect(name_error['code']).to eq('E_CATEGORY_DUPLICATED')
     end
 
     it 'retorna 404 para id inexistente' do

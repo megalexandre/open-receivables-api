@@ -37,7 +37,7 @@ class ConnectionsController < ApplicationController
     if link.save
       render json: link, status: :created
     else
-      render json: { errors: link.errors }, status: :unprocessable_entity
+      render json: { errors: link.errors }, status: :unprocessable_content
     end
   end
 
@@ -46,7 +46,7 @@ class ConnectionsController < ApplicationController
     if @connection.save
       render json: @connection
     else
-      render json: { errors: @connection.errors }, status: :unprocessable_entity
+      render json: { errors: @connection.errors }, status: :unprocessable_content
     end
   end
 

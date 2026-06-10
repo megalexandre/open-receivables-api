@@ -41,7 +41,7 @@ class WaterQualityController < ApplicationController
 
     render json: { ok: true }, status: :created
   rescue ActiveRecord::RecordInvalid => e
-    render json: { error: e.message }, status: :unprocessable_entity
+    render json: { error: e.message }, status: :unprocessable_content
   end
 
   private

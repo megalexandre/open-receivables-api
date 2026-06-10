@@ -5,7 +5,7 @@ class MemberSerializer
 
   def as_json(*)
     {
-      id:            @member.id.to_s,
+      id:            @member.id,
       name:          @member.name,
       document:      @member.document,
       member_number: @member.member_number,

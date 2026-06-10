@@ -9,6 +9,6 @@ module ErrorResponse
       { code: code, field: error.attribute }
     end
 
-    render json: { errors: errors }, status: :unprocessable_entity
+    render json: { errors: errors }, status: :unprocessable_content
   end
 end

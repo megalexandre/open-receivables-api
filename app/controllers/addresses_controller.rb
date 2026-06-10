@@ -7,23 +7,23 @@ class AddressesController < ApplicationController
 
   # GET /addresses
   def index
-    render json: paginate(scope_service.call)
+    render json: paginate(scope_service.call, serializer: AddressSerializer)
   end
 
   # GET /addresses/:id
   def show
-    render json: @address
+    render json: AddressSerializer.new(@address)
   end
 
   # POST /addresses
   def create
-    save_and_respond(Address.new(address_params), status: :created)
+    save_and_respond(Address.new(address_params), status: :created, serializer: AddressSerializer)
   end
 
   # PATCH/PUT /addresses/:id
   def update
     @address.assign_attributes(address_params)
-    save_and_respond(@address)
+    save_and_respond(@address, serializer: AddressSerializer)
   end
 
   private
