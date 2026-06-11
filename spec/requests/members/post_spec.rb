@@ -133,11 +133,13 @@ RSpec.describe 'POST /members', type: :request do
   context 'com document de membro deletado' do
     let!(:deletado) { create(:member, name: 'Sócio Antigo', document: '12345678901').tap(&:soft_delete!) }
 
-    it 'reativa o membro deletado e retorna 201' do
+    it 'retorna 422 com código E_MEMBER_DUPLICATED' do
       post members_path, params: { member: { name: 'Novo Sócio', document: '12345678901' } }, as: :json
 
-      expect(response).to have_http_status(:created)
-      expect(deletado.reload.deleted_at).to be_nil
+      expect(response).to have_http_status(:unprocessable_content)
+      error = response.parsed_body['errors'].first
+      expect(error['code']).to eq('E_MEMBER_DUPLICATED')
+      expect(error['field']).to eq('document')
     end
 
     it 'não cria um novo registro' do
@@ -146,28 +148,19 @@ RSpec.describe 'POST /members', type: :request do
       }.not_to change(Member.unscoped, :count)
     end
 
-    it 'retorna o membro reativado com o mesmo id e os dados atualizados' do
+    it 'não altera nem reativa o membro deletado' do
       post members_path, params: { member: { name: 'Novo Sócio', document: '12345678901', voter: true } }, as: :json
 
-      body = response.parsed_body
-      expect(body['id']).to eq(deletado.id)
-      expect(body['name']).to eq('Novo Sócio')
-      expect(body['voter']).to eq(true)
+      deletado.reload
+      expect(deletado.deleted_at).to be_present
+      expect(deletado.name).to eq('Sócio Antigo')
     end
 
-    it 'membro reativado volta a aparecer no index' do
-      post members_path, params: { member: { name: 'Novo Sócio', document: '12345678901' } }, as: :json
-      get members_path, as: :json
-
-      ids = response.parsed_body['data'].map { |m| m['id'] }
-      expect(ids).to include(deletado.id)
-    end
-
-    it 'reativa mesmo quando o document chega formatado' do
+    it 'retorna 422 mesmo quando o document chega formatado' do
       post members_path, params: { member: { name: 'Novo Sócio', document: '123.456.789-01' } }, as: :json
 
-      expect(response).to have_http_status(:created)
-      expect(deletado.reload.deleted_at).to be_nil
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(deletado.reload.deleted_at).to be_present
     end
   end
 end
