@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :categories
   resources :addresses
-  resources :members
+  resources :members do
+    member { patch :reactivate }
+  end
   resources :connections do
     collection { get :summary }
   end

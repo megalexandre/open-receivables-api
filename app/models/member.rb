@@ -3,6 +3,8 @@ class Member < ApplicationRecord
 
   validates :name,     presence: true
   validates :document, presence: true, length: { minimum: 11, maximum: 14 },
-                       uniqueness: { conditions: -> { where(deleted_at: nil) } }
+                       uniqueness: { message: 'já existe um sócio cadastrado com este documento' }
+
+
   validates :voter,    inclusion: { in: [true, false] }
 end

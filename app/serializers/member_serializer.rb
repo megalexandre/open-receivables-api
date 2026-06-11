@@ -10,6 +10,7 @@ class MemberSerializer
       document:      @member.document,
       member_number: @member.member_number,
       voter:         @member.voter,
+      active:        @member.deleted_at.nil?,
     }
   end
 end

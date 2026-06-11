@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 20260610001) do
+ActiveRecord::Schema[8.1].define(version: 20260611001) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "address_type", null: false
     t.datetime "created_at"
@@ -68,14 +68,13 @@ ActiveRecord::Schema[8.1].define(version: 20260610001) do
     t.datetime "deleted_at"
     t.string "deleted_by"
     t.string "document"
-    t.virtual "document_active", type: :string, limit: 14, as: "if((`deleted_at` is null),`document`,NULL)"
     t.integer "member_number"
     t.string "name", null: false
     t.datetime "updated_at", null: false
     t.string "updated_by"
     t.boolean "voter", default: false, null: false
     t.index ["deleted_at"], name: "idx_members_deleted_at"
-    t.index ["document_active"], name: "idx_members_document_active_unique", unique: true
+    t.index ["document"], name: "idx_members_document_unique", unique: true
     t.index ["name"], name: "idx_members_name"
   end
 
