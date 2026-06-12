@@ -136,6 +136,23 @@ RSpec.describe 'Categories', type: :request do
         expect(name_error['code']).to eq('E_CATEGORY_DUPLICATED')
       end
     end
+
+    context 'com name duplicado de uma categoria inativa' do
+      it 'retorna 422 (deve reativar em vez de recriar)' do
+        create(:category, name: 'Inativa', member_type: 'Sócio Efetivo').soft_delete!
+
+        params = { category: valid_params[:category].merge(name: 'Inativa') }
+        expect {
+          post categories_path, params: params, as: :json
+        }.not_to change(Category.unscoped, :count)
+
+        expect(response).to have_http_status(:unprocessable_content)
+
+        error = response.parsed_body['errors'].find { |e| e['code'] == 'E_CATEGORY_DUPLICATED' }
+        expect(error).to be_present
+        expect(error['field']).to eq('name')
+      end
+    end
   end
 
   describe 'GET /categories' do
@@ -231,6 +248,71 @@ RSpec.describe 'Categories', type: :request do
 
       names = response.parsed_body['data'].map { |c| c['name'] }
       expect(names).not_to include('Categoria A')
+    end
+
+    it 'retorna active true para categorias ativas' do
+      get categories_path, headers: json_headers
+
+      expect(response.parsed_body['data']).to all(include('active' => true))
+    end
+
+    it 'active=false retorna apenas categorias inativas' do
+      cat_a.soft_delete!
+
+      get categories_path, params: { active: 'false' }, headers: json_headers
+
+      names = response.parsed_body['data'].map { |c| c['name'] }
+      expect(names).to contain_exactly('Categoria A')
+      expect(response.parsed_body['data']).to all(include('active' => false))
+    end
+  end
+
+  describe 'PATCH /categories/:id/reactivate' do
+    context 'quando a categoria está deletada' do
+      let!(:categoria) { create(:category, name: 'Categoria Antiga').tap(&:soft_delete!) }
+
+      it 'reativa a categoria e retorna 200' do
+        patch reactivate_category_path(categoria), as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(categoria.reload.deleted_at).to be_nil
+        expect(categoria.deleted_by).to be_nil
+      end
+
+      it 'retorna a categoria com active true no body' do
+        patch reactivate_category_path(categoria), as: :json
+
+        body = response.parsed_body
+        expect(body['id']).to eq(categoria.id)
+        expect(body['active']).to eq(true)
+      end
+
+      it 'categoria volta a aparecer no index' do
+        patch reactivate_category_path(categoria), as: :json
+        get categories_path, headers: json_headers
+
+        ids = response.parsed_body['data'].map { |c| c['id'] }
+        expect(ids).to include(categoria.id)
+      end
+    end
+
+    context 'quando a categoria está ativa' do
+      let!(:categoria) { create(:category) }
+
+      it 'retorna 200 e mantém a categoria ativa (idempotente)' do
+        patch reactivate_category_path(categoria), as: :json
+
+        expect(response).to have_http_status(:ok)
+        expect(categoria.reload.deleted_at).to be_nil
+      end
+    end
+
+    context 'quando a categoria não existe' do
+      it 'retorna 404' do
+        patch reactivate_category_path(id: 0), as: :json
+
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 

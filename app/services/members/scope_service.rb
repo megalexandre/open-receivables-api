@@ -16,7 +16,6 @@ module Members
       case @params[:sort_by]
       when 'name'          then scope.order(name: direction)
       when 'member_number' then scope.order(member_number: direction)
-      when 'active'        then scope.order(deleted_at: direction == :asc ? :desc : :asc)
       else                      scope.order(name: :asc)
       end
     end

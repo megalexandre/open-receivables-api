@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
   SORTABLE_COLUMNS = %w[name member_type has_hydrometer amount_water amount_partner].freeze
 
   def index
-    render json: paginate(Category.all)
+    render json: paginate(base_scope)
   end
 
   def show
@@ -24,7 +24,18 @@ class CategoriesController < ApplicationController
     save_and_respond(@category)
   end
 
+  # PATCH /categories/:id/reactivate
+  def reactivate
+    category = Category.unscoped.find(params.expect(:id))
+    category.reactivate!
+    render json: category
+  end
+
   private
+
+  def base_scope
+    params[:active] == 'false' ? Category.unscoped.where.not(deleted_at: nil) : Category.all
+  end
 
   def resource
     @category

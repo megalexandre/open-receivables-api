@@ -16,9 +16,13 @@ default: &default
   username: <%= ENV.fetch("DB_USERNAME") { "root" } %>
   password: <%= ENV.fetch("DB_PASSWORD") { "root" } %>
   host: <%= ENV.fetch("DB_HOST") { "127.0.0.1" } %>
+  port: <%= ENV.fetch("DB_PORT") { 3306 } %>
 
+# Fora de containers o banco do compose é publicado em 3307 (ver docker-compose.yml);
+# 3306 no host pertence ao MySQL de outro usuário da máquina.
 development:
   <<: *default
+  port: <%= ENV.fetch("DB_PORT") { 3307 } %>
   database: api_development
 
 # Warning: The database defined as "test" will be erased and
@@ -26,6 +30,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  port: <%= ENV.fetch("DB_PORT") { 3307 } %>
   database: api_test
 
 # As with config/credentials.yml, you never want to store sensitive information,

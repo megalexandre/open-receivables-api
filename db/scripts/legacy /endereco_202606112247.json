@@ -1,0 +1,573 @@
+{
+"endereco": [
+	{
+		"id" : 1,
+		"tipo" : "Rua",
+		"nome" : "Alegria",
+		"descricao" : ""
+	},
+	{
+		"id" : 2,
+		"tipo" : "Travessa",
+		"nome" : "Alegria",
+		"descricao" : ""
+	},
+	{
+		"id" : 3,
+		"tipo" : "Rua",
+		"nome" : "ACM",
+		"descricao" : ""
+	},
+	{
+		"id" : 4,
+		"tipo" : "Travessa",
+		"nome" : "ACM",
+		"descricao" : ""
+	},
+	{
+		"id" : 5,
+		"tipo" : "Rua",
+		"nome" : "Bom Sucesso",
+		"descricao" : ""
+	},
+	{
+		"id" : 6,
+		"tipo" : "Travessa",
+		"nome" : "Bom Sucesso",
+		"descricao" : ""
+	},
+	{
+		"id" : 7,
+		"tipo" : "Rua",
+		"nome" : "Coronel S. Nogueira",
+		"descricao" : ""
+	},
+	{
+		"id" : 8,
+		"tipo" : "Rua",
+		"nome" : "Edivaldo Nunes de Carvalho",
+		"descricao" : ""
+	},
+	{
+		"id" : 10,
+		"tipo" : "Avenida",
+		"nome" : "Fernando Daltro",
+		"descricao" : ""
+	},
+	{
+		"id" : 11,
+		"tipo" : "Travessa",
+		"nome" : "Fernando Daltro",
+		"descricao" : ""
+	},
+	{
+		"id" : 12,
+		"tipo" : "Avenida",
+		"nome" : "Flavio Mesquita",
+		"descricao" : ""
+	},
+	{
+		"id" : 13,
+		"tipo" : "Travessa",
+		"nome" : "Flavio Mesquita",
+		"descricao" : ""
+	},
+	{
+		"id" : 14,
+		"tipo" : "Rua",
+		"nome" : "Flores",
+		"descricao" : ""
+	},
+	{
+		"id" : 15,
+		"tipo" : "Travessa",
+		"nome" : "Flores",
+		"descricao" : ""
+	},
+	{
+		"id" : 16,
+		"tipo" : "Rua",
+		"nome" : "Gilberto Miranda",
+		"descricao" : ""
+	},
+	{
+		"id" : 17,
+		"tipo" : "Rua",
+		"nome" : "Jose Facho",
+		"descricao" : ""
+	},
+	{
+		"id" : 18,
+		"tipo" : "Rua",
+		"nome" : "João Neres",
+		"descricao" : ""
+	},
+	{
+		"id" : 19,
+		"tipo" : "Rua",
+		"nome" : "Primeiro de Janeiro",
+		"descricao" : ""
+	},
+	{
+		"id" : 20,
+		"tipo" : "Travessa",
+		"nome" : "Primeiro de Janeiro",
+		"descricao" : ""
+	},
+	{
+		"id" : 21,
+		"tipo" : "Praça",
+		"nome" : "João Carneiro",
+		"descricao" : ""
+	},
+	{
+		"id" : 22,
+		"tipo" : "Rua",
+		"nome" : "Liberdade",
+		"descricao" : ""
+	},
+	{
+		"id" : 23,
+		"tipo" : "Rua",
+		"nome" : "Manoel C. de Souza",
+		"descricao" : ""
+	},
+	{
+		"id" : 24,
+		"tipo" : "Rua",
+		"nome" : "Manoel Novaes",
+		"descricao" : ""
+	},
+	{
+		"id" : 25,
+		"tipo" : "Travessa",
+		"nome" : "Manoel Novaes",
+		"descricao" : ""
+	},
+	{
+		"id" : 26,
+		"tipo" : "Rua",
+		"nome" : "Morro do Chapéu",
+		"descricao" : ""
+	},
+	{
+		"id" : 27,
+		"tipo" : "Travessa",
+		"nome" : "Morro do Chapéu",
+		"descricao" : ""
+	},
+	{
+		"id" : 28,
+		"tipo" : "Rua",
+		"nome" : "Nova",
+		"descricao" : ""
+	},
+	{
+		"id" : 29,
+		"tipo" : "Rua",
+		"nome" : "Padre Alfredo",
+		"descricao" : ""
+	},
+	{
+		"id" : 30,
+		"tipo" : "Travessa",
+		"nome" : "Padre Alfredo",
+		"descricao" : ""
+	},
+	{
+		"id" : 31,
+		"tipo" : "Praça",
+		"nome" : "Sé",
+		"descricao" : ""
+	},
+	{
+		"id" : 32,
+		"tipo" : "Rua",
+		"nome" : "Quintino Alves",
+		"descricao" : ""
+	},
+	{
+		"id" : 33,
+		"tipo" : "Travessa",
+		"nome" : "Quintino Alves",
+		"descricao" : ""
+	},
+	{
+		"id" : 34,
+		"tipo" : "Praça",
+		"nome" : "Rinaldo Magalhães",
+		"descricao" : ""
+	},
+	{
+		"id" : 35,
+		"tipo" : "Rodovia",
+		"nome" : "Assent. Alagoinhas",
+		"descricao" : ""
+	},
+	{
+		"id" : 36,
+		"tipo" : "Rua",
+		"nome" : "Saudade",
+		"descricao" : ""
+	},
+	{
+		"id" : 37,
+		"tipo" : "Travessa",
+		"nome" : "Saudade",
+		"descricao" : ""
+	},
+	{
+		"id" : 38,
+		"tipo" : "Rua",
+		"nome" : "Senhor do Bomfim",
+		"descricao" : ""
+	},
+	{
+		"id" : 39,
+		"tipo" : "Rua",
+		"nome" : "São José",
+		"descricao" : ""
+	},
+	{
+		"id" : 40,
+		"tipo" : "Rua",
+		"nome" : "Sete de Setembro",
+		"descricao" : ""
+	},
+	{
+		"id" : 41,
+		"tipo" : "Rua",
+		"nome" : "Santo Antonio",
+		"descricao" : ""
+	},
+	{
+		"id" : 42,
+		"tipo" : "Rua",
+		"nome" : "Usina",
+		"descricao" : ""
+	},
+	{
+		"id" : 43,
+		"tipo" : "Rua",
+		"nome" : "Direita",
+		"descricao" : ""
+	},
+	{
+		"id" : 44,
+		"tipo" : "Travessa",
+		"nome" : "Florisvaldo M. de Freitas",
+		"descricao" : ""
+	},
+	{
+		"id" : 45,
+		"tipo" : "Rua",
+		"nome" : "Flavio Mesquita",
+		"descricao" : ""
+	},
+	{
+		"id" : 46,
+		"tipo" : "Fazenda",
+		"nome" : "Cajueiro",
+		"descricao" : ""
+	},
+	{
+		"id" : 47,
+		"tipo" : "Fazenda",
+		"nome" : "Gonçalves",
+		"descricao" : ""
+	},
+	{
+		"id" : 48,
+		"tipo" : "Fazenda",
+		"nome" : "Poços",
+		"descricao" : ""
+	},
+	{
+		"id" : 49,
+		"tipo" : "Fazenda",
+		"nome" : "Bela Vista",
+		"descricao" : ""
+	},
+	{
+		"id" : 51,
+		"tipo" : "Fazenda",
+		"nome" : "Eliege e Geraldo",
+		"descricao" : ""
+	},
+	{
+		"id" : 52,
+		"tipo" : "Fazenda",
+		"nome" : "Água Nova",
+		"descricao" : ""
+	},
+	{
+		"id" : 53,
+		"tipo" : "Fazenda",
+		"nome" : "Lages do Contorno",
+		"descricao" : ""
+	},
+	{
+		"id" : 54,
+		"tipo" : "Fazenda",
+		"nome" : "Caratiu",
+		"descricao" : ""
+	},
+	{
+		"id" : 55,
+		"tipo" : "Fazenda",
+		"nome" : "2 Irmãos",
+		"descricao" : ""
+	},
+	{
+		"id" : 56,
+		"tipo" : "Fazenda",
+		"nome" : "Halane",
+		"descricao" : ""
+	},
+	{
+		"id" : 57,
+		"tipo" : "Fazenda",
+		"nome" : "Umbaumba -Tombador",
+		"descricao" : ""
+	},
+	{
+		"id" : 58,
+		"tipo" : "Fazenda",
+		"nome" : "Bom sossego",
+		"descricao" : ""
+	},
+	{
+		"id" : 59,
+		"tipo" : "Fazenda",
+		"nome" : " Saco",
+		"descricao" : ""
+	},
+	{
+		"id" : 60,
+		"tipo" : "Rua",
+		"nome" : "Humildes Jacobina-BA",
+		"descricao" : ""
+	},
+	{
+		"id" : 62,
+		"tipo" : "Rua",
+		"nome" : "Conj. Hab. Jacobina3",
+		"descricao" : ""
+	},
+	{
+		"id" : 63,
+		"tipo" : "Rua",
+		"nome" : "Lot. Pedro H. Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 64,
+		"tipo" : "Fazenda",
+		"nome" : "Edvaldo Nunes",
+		"descricao" : ""
+	},
+	{
+		"id" : 66,
+		"tipo" : "Fazenda",
+		"nome" : " Água Nova",
+		"descricao" : ""
+	},
+	{
+		"id" : 67,
+		"tipo" : "Rua",
+		"nome" : "Roberto Maia",
+		"descricao" : ""
+	},
+	{
+		"id" : 68,
+		"tipo" : "Fazenda",
+		"nome" : "Brauna",
+		"descricao" : ""
+	},
+	{
+		"id" : 69,
+		"tipo" : "Fazenda",
+		"nome" : "Sitio J Padre Cícero",
+		"descricao" : ""
+	},
+	{
+		"id" : 70,
+		"tipo" : "Rodovia",
+		"nome" : "Tombador\/Lages do Batata",
+		"descricao" : ""
+	},
+	{
+		"id" : 71,
+		"tipo" : "Avenida",
+		"nome" : "Givaldo Avelino da Mota Av 4 Bairro Pedro Henrique Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 72,
+		"tipo" : "Rua",
+		"nome" : "Ana Pinto Barbosa Rua 12 Bairro Pedro Henrique Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 73,
+		"tipo" : "Rua",
+		"nome" : "Antonio Batista de Carvalho Rua 13 Bairro Pedro Henrique Ferreira",
+		"descricao" : "(Mao Aberta)"
+	},
+	{
+		"id" : 74,
+		"tipo" : "Avenida",
+		"nome" : "Dilson Barbosa Av Nº 6 Bairro Pedro Henriqe Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 75,
+		"tipo" : "Rua",
+		"nome" : "Francisco Fidélix da Silva, Rua 22 Bairro Pedro Henrique Ferreira",
+		"descricao" : "Chico Mariano"
+	},
+	{
+		"id" : 76,
+		"tipo" : "Rua",
+		"nome" : "Francisco Matos Rua 7 do Bairro Pedro Henrique Ferreira ",
+		"descricao" : "(Chico do Bode)"
+	},
+	{
+		"id" : 77,
+		"tipo" : "Rua",
+		"nome" : "Hostilo  Quintino Alves Rua Nº 16 Bairro Pedro Henrique Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 78,
+		"tipo" : "Rua",
+		"nome" : "José Carneiro da Silva, Rua 10 Bairro Pedro Henrique Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 80,
+		"tipo" : "Rua",
+		"nome" : "José Moura de Souza Rua 19 do Bairro Pedro Henrique Ferreira",
+		"descricao" : "(Zeca Pedro)"
+	},
+	{
+		"id" : 82,
+		"tipo" : "Rua",
+		"nome" : "José Severino Neto Rua 15 Bairro Pedro Henrique Ferreira",
+		"descricao" : "(Zé Macedo)"
+	},
+	{
+		"id" : 83,
+		"tipo" : "Rua",
+		"nome" : "Manoel Nogueira da Silva Rua 23 Bairro Pedro Henrique Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 84,
+		"tipo" : "Avenida",
+		"nome" : " Mário Alves de Amorim, Av Nº 5  Bairro Pedro Henrique Ferreira",
+		"descricao" : "(Sr. Zulego"
+	},
+	{
+		"id" : 85,
+		"tipo" : "Rua",
+		"nome" : "São Francisco Rua 21 Bairro Pedro Henrique Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 86,
+		"tipo" : "Avenida",
+		"nome" : "Genézio José de Miranda Av 3 Bairro Loteamento Pedro Henrique",
+		"descricao" : "(Sr. Dinho)"
+	},
+	{
+		"id" : 87,
+		"tipo" : "Rua",
+		"nome" : "Medeiros- Bairro Vila Pamponet",
+		"descricao" : "Primeira Rua do Vila Bairro Pamponet"
+	},
+	{
+		"id" : 88,
+		"tipo" : "Rua",
+		"nome" : "Cravo- Bairro Vila Pamponet",
+		"descricao" : "Segunda Rua do Bairro Vila Pamponet. "
+	},
+	{
+		"id" : 89,
+		"tipo" : "Rua",
+		"nome" : "dos Evangelicos - Bairro Vila Pamponet",
+		"descricao" : "Terceira Rua do Bairro Vila Pamponet"
+	},
+	{
+		"id" : 90,
+		"tipo" : "Rua",
+		"nome" : "Otaciana Benícia de Jesus Rua Nº 20 Bairro Pedro Henrique Ferreira",
+		"descricao" : "Dona Baia"
+	},
+	{
+		"id" : 91,
+		"tipo" : "Avenida",
+		"nome" : "Raul Mangabeira  Av 2 Bairro Pedro Henrique Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 92,
+		"tipo" : "Rua",
+		"nome" : "Maria Brito de Souza Rua 18 Bairro Loteamento Pedro Henrique",
+		"descricao" : "(Dona Zainha)"
+	},
+	{
+		"id" : 93,
+		"tipo" : "Rua",
+		"nome" : "Terezinha Soares da Silva Rua 16 Bairro Pedro Henrique Ferreira",
+		"descricao" : "(Tereza)"
+	},
+	{
+		"id" : 94,
+		"tipo" : "Rua",
+		"nome" : "José  Correia da Silva Rua 11 Bairro Loteamento Pedro Henrique Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 95,
+		"tipo" : "Rua",
+		"nome" : "José Ferreira Filho Rua 17 Bairro Pedro Henrique Ferreira",
+		"descricao" : ""
+	},
+	{
+		"id" : 96,
+		"tipo" : "Fazenda",
+		"nome" : "Água Nova -Sitio Terra Prometida - zona rural",
+		"descricao" : ""
+	},
+	{
+		"id" : 97,
+		"tipo" : "Fazenda",
+		"nome" : "Água Nova -Sítio Morada dos Pássaros - zona rural",
+		"descricao" : ""
+	},
+	{
+		"id" : 98,
+		"tipo" : "Fazenda",
+		"nome" : "São José",
+		"descricao" : ""
+	},
+	{
+		"id" : 99,
+		"tipo" : "Fazenda",
+		"nome" : " Riacho das Flores",
+		"descricao" : ""
+	},
+	{
+		"id" : 100,
+		"tipo" : "Fazenda",
+		"nome" : "Santo Antônio",
+		"descricao" : "Cadastro de atualização da antiga fazenda Cajueiro de Maria Neusa"
+	},
+	{
+		"id" : 101,
+		"tipo" : "Travessa",
+		"nome" : "Flavio Mesquita - Vila Margarida",
+		"descricao" : ""
+	}
+]}

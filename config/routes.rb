@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  resources :categories
-  resources :addresses
+  resources :categories do
+    member { patch :reactivate }
+  end
+  resources :addresses do
+    member { patch :reactivate }
+  end
   resources :members do
     member { patch :reactivate }
   end

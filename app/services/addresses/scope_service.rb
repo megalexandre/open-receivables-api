@@ -5,7 +5,7 @@ module Addresses
     end
 
     def call
-      scope = Address.all
+      scope = base_scope
       scope = scope.where(address_type: @params[:address_type]) if @params[:address_type].present?
       scope = scope.where("name LIKE ?", "%#{@params[:name]}%") if @params[:name].present?
       scope
@@ -18,6 +18,12 @@ module Addresses
       when 'address_type' then scope.order(address_type: direction)
       else                     scope.order(address_type: :asc, name: :asc)
       end
+    end
+
+    private
+
+    def base_scope
+      @params[:active] == 'false' ? Address.unscoped.where.not(deleted_at: nil) : Address.all
     end
   end
 end

@@ -19,9 +19,27 @@ RSpec.describe 'GET /addresses', type: :request do
           'id'           => rua.id,
           'address_type' => 'Rua',
           'name'         => 'das Flores',
-          'notes'        => 'Próximo à praça'
+          'notes'        => 'Próximo à praça',
+          'active'       => true
         }
       ])
+    end
+  end
+
+  context 'filtro por situação' do
+    let!(:ativa)   { create(:address, address_type: 'Rua', name: 'Ativa') }
+    let!(:inativa) { create(:address, address_type: 'Rua', name: 'Inativa').tap(&:soft_delete!) }
+
+    it 'sem parâmetro retorna apenas ativos' do
+      get addresses_path, as: :json
+
+      expect(response.parsed_body['data'].map { |a| a['name'] }).to contain_exactly('Ativa')
+    end
+
+    it 'active=false retorna apenas inativos' do
+      get addresses_path, params: { active: 'false' }
+
+      expect(response.parsed_body['data'].map { |a| a['name'] }).to contain_exactly('Inativa')
     end
   end
 

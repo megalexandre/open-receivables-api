@@ -12,7 +12,8 @@ RSpec.describe 'GET /addresses/:id', type: :request do
         'id' => rua.id,
         'address_type' => 'Rua',
         'name' => 'das Flores',
-        'notes' => 'Próximo à praça'
+        'notes' => 'Próximo à praça',
+        'active' => true
       )
     end
   end

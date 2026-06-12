@@ -10,17 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 20260611001) do
+ActiveRecord::Schema[8.1].define(version: 20260612002) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "address_type", null: false
     t.datetime "created_at"
     t.datetime "deleted_at"
     t.string "deleted_by"
     t.string "name", null: false
-    t.virtual "name_active", type: :string, as: "if((`deleted_at` is null),`name`,NULL)"
     t.text "notes"
     t.datetime "updated_at"
-    t.index ["address_type", "name_active"], name: "idx_address_type_name_active_unique", unique: true
+    t.index ["address_type", "name"], name: "idx_address_type_name_unique", unique: true
     t.index ["deleted_at"], name: "index_addresses_on_deleted_at"
   end
 
@@ -92,6 +91,7 @@ ActiveRecord::Schema[8.1].define(version: 20260611001) do
     t.string "updated_by"
     t.index ["deleted_at"], name: "idx_water_analyses_deleted_at"
     t.index ["parameter"], name: "idx_water_analyses_parameter"
+    t.index ["reference_date", "parameter"], name: "idx_water_analyses_reference_parameter_unique", unique: true
     t.index ["reference_date"], name: "idx_water_analyses_reference_date"
   end
 

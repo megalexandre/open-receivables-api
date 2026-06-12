@@ -26,6 +26,13 @@ class AddressesController < ApplicationController
     save_and_respond(@address, serializer: AddressSerializer)
   end
 
+  # PATCH /addresses/:id/reactivate
+  def reactivate
+    address = Address.unscoped.find(params.expect(:id))
+    address.reactivate!
+    render json: AddressSerializer.new(address)
+  end
+
   private
 
   def scope_service = Addresses::ScopeService.new(params)

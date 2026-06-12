@@ -9,6 +9,7 @@ class AddressSerializer
       address_type: @address.address_type,
       name:         @address.name,
       notes:        @address.notes,
+      active:       @address.deleted_at.nil?,
     }
   end
 end
