@@ -1,4 +1,6 @@
 class Address < ApplicationRecord
+  include SoftDeletable
+
   has_many :connections
 
   validates :name, presence: true,

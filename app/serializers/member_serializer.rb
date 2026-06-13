@@ -1,4 +1,5 @@
 class MemberSerializer
+  
   def initialize(member)
     @member = member
   end

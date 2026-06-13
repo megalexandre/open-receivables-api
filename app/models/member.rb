@@ -1,4 +1,6 @@
 class Member < ApplicationRecord
+  include SoftDeletable
+
   before_validation { self.document = document&.gsub(/\D/, '') }
 
   validates :name,     presence: true
