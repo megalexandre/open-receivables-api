@@ -6,17 +6,17 @@ class ConnectionSerializer
   def as_json(*)
     {
       id:                 @connection.id,
-      member_id:          @connection.member_id,
-      member_name:        @connection.member.name,
-      address_id:         @connection.address_id,
+      memberId:           @connection.member_id,
+      memberName:         @connection.member.name,
+      addressId:          @connection.address_id,
       address:            "#{@connection.address.address_type} #{@connection.address.name}",
       active:             @connection.deleted_at.nil?,
-      category_id:        @connection.category_id,
-      category_name:      @connection.category.name,
+      categoryId:         @connection.category_id,
+      categoryName:       @connection.category.name,
       value:              @connection.category.amount_water.to_f + @connection.category.amount_partner.to_f,
       number:             @connection.number,
-      registration_date:  @connection.registration_date,
-      partner_exclusive:  @connection.partner_exclusive,
+      registrationDate:   @connection.registration_date,
+      partnerExclusive:   @connection.partner_exclusive,
     }
   end
 end

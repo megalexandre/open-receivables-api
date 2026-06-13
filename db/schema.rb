@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 20260612010) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_13_120545) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "address_type", null: false
     t.datetime "created_at"
@@ -36,6 +36,7 @@ ActiveRecord::Schema[8.1].define(version: 20260612010) do
     t.string "name", null: false
     t.datetime "updated_at", null: false
     t.string "updated_by"
+    t.index ["deleted_at", "id"], name: "idx_categories_deleted_at_id"
     t.index ["deleted_at"], name: "idx_category_deleted_at"
     t.index ["member_type"], name: "idx_category_member_type"
     t.index ["name", "member_type"], name: "idx_category_name_member_type", unique: true
@@ -58,6 +59,7 @@ ActiveRecord::Schema[8.1].define(version: 20260612010) do
     t.index ["address_id"], name: "idx_connection_address_id"
     t.index ["category_id"], name: "idx_connection_category_id"
     t.index ["connection_key"], name: "idx_connections_key", unique: true
+    t.index ["deleted_at", "address_id"], name: "idx_connections_deleted_at_address_id"
     t.index ["deleted_at"], name: "idx_connections_deleted_at"
     t.index ["member_id"], name: "idx_connection_member_id"
   end
@@ -73,6 +75,7 @@ ActiveRecord::Schema[8.1].define(version: 20260612010) do
     t.datetime "updated_at", null: false
     t.string "updated_by"
     t.boolean "voter", default: false, null: false
+    t.index ["deleted_at", "name"], name: "idx_members_deleted_at_name"
     t.index ["deleted_at"], name: "idx_members_deleted_at"
     t.index ["document"], name: "idx_members_document_unique", unique: true
     t.index ["name"], name: "idx_members_name"

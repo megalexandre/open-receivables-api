@@ -5,10 +5,8 @@ module Connections
     end
 
     def call
-      scope = Connection.joins(:member, :address, :category)
-      scope = scope.where("members.name LIKE ?", "%#{@params[:memberName]}%") if @params[:memberName].present?
-      scope = scope.where(address_id: @params[:addressId]) if @params[:addressId].present?
-      scope = scope.where(deleted_at: filter_by_active) if @params[:active].present?
+      scope = build_scope
+      scope = apply_filters(scope)
       sort(scope)
     end
 
@@ -25,8 +23,22 @@ module Connections
 
     private
 
-    def filter_by_active
-      @params[:active] == 'true' ? nil : 'NOT NULL'
+    def build_scope
+      # Use unscoped for inactive queries to avoid default_scope conflicts with joins
+      @params[:active] == 'false' ?
+        Connection.unscoped.joins(:member, :address, :category) :
+        Connection.joins(:member, :address, :category)
+    end
+
+    def apply_filters(scope)
+      scope = scope.where(member_id: @params[:memberId]) if @params[:memberId].present?
+      scope = scope.where(address_id: @params[:addressId]) if @params[:addressId].present?
+      scope = apply_active_filter(scope) if @params[:active].present?
+      scope
+    end
+
+    def apply_active_filter(scope)
+      @params[:active] == 'true' ? scope.where(deleted_at: nil) : scope.where.not(deleted_at: nil)
     end
 
     def sort_direction
