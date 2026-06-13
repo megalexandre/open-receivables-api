@@ -7,9 +7,7 @@ class ConnectionsController < ApplicationController
 
   # GET /connections
   def index
-    scope = scope_service.call
-    Rails.logger.warn "🔍 CONNECTIONS - scope.count: #{scope.count}"
-    render json: paginate(scope, serializer: ConnectionSerializer)
+    render json: paginate(scope_service.call, serializer: ConnectionSerializer)
   end
 
   # GET /connections/:id
