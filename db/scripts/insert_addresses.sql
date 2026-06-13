@@ -1,8 +1,10 @@
 -- Migração dos endereços legados (endereco_202606112247.json) para a tabela `addresses`.
 -- tipo -> address_type, nome -> name (espaços nas bordas removidos), descricao -> notes (vazia -> NULL).
 -- Ids legados preservados (9, 50, 61, 65, 79, 81 não existiam na origem) para manter o vínculo com `links.address_id`.
--- O id 66 (' Água Nova') é duplicata do id 52 após o trim: entra soft-deletado para não violar
--- o índice único (address_type, name_active). Se houver ligações apontando para o 66, repontar para o 52.
+-- O id 66 (' Água Nova') é duplicata do id 52 após o trim e foi OMITIDO: o índice único
+-- (address_type, name) vale também para registros soft-deletados, então nem soft-deletada a
+-- duplicata pode existir. As ligações que apontavam para o 66 são repontadas para o 52 no
+-- insert_links.sql (ids 1900 e 2139).
 
 INSERT INTO addresses
   (id, address_type, name, notes, created_at, updated_at)
@@ -101,10 +103,3 @@ VALUES
   (99,  'Fazenda',  'Riacho das Flores', NULL, NOW(), NOW()),
   (100, 'Fazenda',  'Santo Antônio', 'Cadastro de atualização da antiga fazenda Cajueiro de Maria Neusa', NOW(), NOW()),
   (101, 'Travessa', 'Flavio Mesquita - Vila Margarida', NULL, NOW(), NOW());
-
--- Duplicata do id 52 (Fazenda 'Água Nova', diferia só por espaço inicial no legado).
--- Entra soft-deletada para preservar o id sem violar o índice único.
-INSERT INTO addresses
-  (id, address_type, name, notes, created_at, updated_at, deleted_at, deleted_by)
-VALUES
-  (66, 'Fazenda', 'Água Nova', 'Duplicata do endereço 52 na base legada', NOW(), NOW(), NOW(), 'migracao-legado');

@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  has_many :links
+  has_many :connections
 
   validates :name, presence: true,
       uniqueness: { scope: :address_type,

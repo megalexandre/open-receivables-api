@@ -11,13 +11,15 @@ RSpec.describe 'WaterQuality', type: :request do
       expect(WaterAnalysis.count).to eq(1)
     end
 
-    it 'rejeita parâmetro duplicado na mesma referência' do
+    it 'rejeita parâmetro duplicado na mesma referência com code E_WATER_ANALYSIS_DUPLICATED' do
       create(:water_analysis, parameter: 'Turbidez', reference_date: Date.new(2026, 6, 1))
 
       post '/water-quality', params: { month: 6, year: 2026, entries: [entry] }, as: :json
 
       expect(response).to have_http_status(:unprocessable_content)
-      expect(response.parsed_body['error']).to include('já existe uma análise')
+      error = response.parsed_body['errors'].find { |e| e['code'] == 'E_WATER_ANALYSIS_DUPLICATED' }
+      expect(error).to be_present
+      expect(error['field']).to eq('parameter')
       expect(WaterAnalysis.count).to eq(1)
     end
 
@@ -25,6 +27,7 @@ RSpec.describe 'WaterQuality', type: :request do
       post '/water-quality', params: { month: 6, year: 2026, entries: [entry, entry] }, as: :json
 
       expect(response).to have_http_status(:unprocessable_content)
+      expect(response.parsed_body['errors'].first['code']).to eq('E_WATER_ANALYSIS_DUPLICATED')
       expect(WaterAnalysis.count).to eq(0)
     end
 

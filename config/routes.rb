@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   resources :connections do
     collection { get :summary }
+    member { patch :reactivate }
   end
 
   get    'water-quality', to: 'water_quality#index'

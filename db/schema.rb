@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 20260612002) do
+ActiveRecord::Schema[8.1].define(version: 20260612010) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "address_type", null: false
     t.datetime "created_at"
@@ -41,24 +41,25 @@ ActiveRecord::Schema[8.1].define(version: 20260612002) do
     t.index ["name", "member_type"], name: "idx_category_name_member_type", unique: true
   end
 
-  create_table "links", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "connections", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "address_id", null: false
+    t.bigint "category_id", null: false
+    t.virtual "connection_key", type: :string, as: "if((`deleted_at` is null),concat(`address_id`,_utf8mb4'-',`number`),NULL)", stored: true
     t.datetime "created_at", null: false
     t.string "created_by"
-    t.date "datamatricula"
     t.datetime "deleted_at"
     t.string "deleted_by"
-    t.bigint "id_categoria_socio", null: false
-    t.bigint "id_pessoa", null: false
-    t.binary "inativo", limit: 1
-    t.string "numero"
-    t.binary "socio_exclusivo", limit: 1
+    t.bigint "member_id", null: false
+    t.string "number"
+    t.boolean "partner_exclusive", default: false, null: false
+    t.date "registration_date"
     t.datetime "updated_at", null: false
     t.string "updated_by"
-    t.index ["address_id"], name: "idx_link_address_id"
-    t.index ["deleted_at"], name: "idx_links_deleted_at"
-    t.index ["id_categoria_socio"], name: "idx_link_id_categoria_socio"
-    t.index ["id_pessoa"], name: "idx_link_id_pessoa"
+    t.index ["address_id"], name: "idx_connection_address_id"
+    t.index ["category_id"], name: "idx_connection_category_id"
+    t.index ["connection_key"], name: "idx_connections_key", unique: true
+    t.index ["deleted_at"], name: "idx_connections_deleted_at"
+    t.index ["member_id"], name: "idx_connection_member_id"
   end
 
   create_table "members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -95,7 +96,7 @@ ActiveRecord::Schema[8.1].define(version: 20260612002) do
     t.index ["reference_date"], name: "idx_water_analyses_reference_date"
   end
 
-  add_foreign_key "links", "addresses"
-  add_foreign_key "links", "categories", column: "id_categoria_socio"
-  add_foreign_key "links", "members", column: "id_pessoa"
+  add_foreign_key "connections", "addresses"
+  add_foreign_key "connections", "categories"
+  add_foreign_key "connections", "members"
 end

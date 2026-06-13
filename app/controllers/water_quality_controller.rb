@@ -29,19 +29,21 @@ class WaterQualityController < ApplicationController
 
     ActiveRecord::Base.transaction do
       Array(params[:entries]).each do |entry|
-        WaterAnalysis.create!(
+        analysis = WaterAnalysis.new(
           parameter:       entry[:parameter],
           reference_date:  date,
           required_value:  entry[:required],
           analyzed_value:  entry[:analyzed],
           conformity_value: entry[:conformity],
         )
+        unless analysis.save
+          render_errors(analysis)
+          raise ActiveRecord::Rollback
+        end
       end
     end
 
-    render json: { ok: true }, status: :created
-  rescue ActiveRecord::RecordInvalid => e
-    render json: { error: e.message }, status: :unprocessable_content
+    render json: { ok: true }, status: :created unless performed?
   end
 
   private
