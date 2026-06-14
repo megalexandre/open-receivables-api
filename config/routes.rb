@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     collection { get :summary }
     member { patch :reactivate }
   end
+  get  'invoice-candidates', to: 'invoice_candidates#index'
+  post 'invoices/generate',  to: 'invoices#generate'
+  resources :invoices
 
   get    'water-quality', to: 'water_quality#index'
   post   'water-quality', to: 'water_quality#create'

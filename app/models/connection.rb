@@ -1,6 +1,15 @@
 class Connection < ApplicationRecord
   include SoftDeletable
 
+  scope :without_invoice_in_period, ->(month, year) {
+    where.not(
+      id: Invoice.unscoped
+                 .where(deleted_at: nil)
+                 .where('MONTH(reference_date) = ? AND YEAR(reference_date) = ?', month, year)
+                 .select(:connection_id)
+    )
+  }
+
   belongs_to :address
   belongs_to :member,   foreign_key: :member_id
   belongs_to :category, foreign_key: :category_id

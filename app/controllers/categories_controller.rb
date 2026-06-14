@@ -8,27 +8,27 @@ class CategoriesController < ApplicationController
   SORTABLE_COLUMNS = %w[name member_type has_hydrometer amount_water amount_partner].freeze
 
   def index
-    render json: paginate(base_scope)
+    render json: paginate(base_scope, serializer: CategorySerializer)
   end
 
   def show
-    render json: @category
+    render json: CategorySerializer.new(@category)
   end
 
   def create
-    save_and_respond(Category.new(category_params), status: :created)
+    save_and_respond(Category.new(category_params), status: :created, serializer: CategorySerializer)
   end
 
   def update
     @category.assign_attributes(category_params)
-    save_and_respond(@category)
+    save_and_respond(@category, serializer: CategorySerializer)
   end
 
   # PATCH /categories/:id/reactivate
   def reactivate
     category = Category.unscoped.find(params.expect(:id))
     category.reactivate!
-    render json: category
+    render json: CategorySerializer.new(category)
   end
 
   private

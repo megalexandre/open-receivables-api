@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_13_120545) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_14_122042) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "address_type", null: false
     t.datetime "created_at"
@@ -64,6 +64,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_13_120545) do
     t.index ["member_id"], name: "idx_connection_member_id"
   end
 
+  create_table "invoices", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.decimal "amount_partner", precision: 10, scale: 2
+    t.decimal "amount_water", precision: 10, scale: 2
+    t.bigint "connection_id", null: false
+    t.datetime "created_at", null: false
+    t.string "created_by"
+    t.datetime "deleted_at"
+    t.string "deleted_by"
+    t.date "due_date", null: false
+    t.datetime "paid_at"
+    t.date "reference_date"
+    t.datetime "updated_at", null: false
+    t.string "updated_by"
+    t.index ["connection_id", "reference_date"], name: "idx_invoices_unique_connection_reference", unique: true
+    t.index ["connection_id"], name: "index_invoices_on_connection_id"
+    t.index ["deleted_at"], name: "index_invoices_on_deleted_at"
+    t.index ["due_date"], name: "index_invoices_on_due_date"
+    t.index ["reference_date"], name: "index_invoices_on_reference_date"
+  end
+
   create_table "members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "created_by"
@@ -102,4 +122,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_13_120545) do
   add_foreign_key "connections", "addresses"
   add_foreign_key "connections", "categories"
   add_foreign_key "connections", "members"
+  add_foreign_key "invoices", "connections"
 end

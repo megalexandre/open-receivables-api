@@ -12,7 +12,7 @@ class WaterQualityController < ApplicationController
         parts[0].to_i, parts[1].to_i
       )
     end
-    render json: paginate(scope)
+    render json: paginate(scope, serializer: WaterAnalysisSerializer)
   end
 
   def destroy
