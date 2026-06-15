@@ -14,9 +14,26 @@ RSpec.describe 'GET /invoices/:id', type: :request do
   it 'returns serialized invoice with camelCase keys' do
     get "/invoices/#{invoice.id}", as: :json
     expect(response.parsed_body).to include(
-      'id', 'connectionId', 'dueDate', 'referenceDate',
+      'id', 'connectionId', 'memberName', 'address', 'dueDate', 'referenceDate',
       'paidAt', 'amountPartner', 'amountWater', 'active', 'createdAt'
     )
+  end
+
+  it 'serializes decimal amounts as numbers (not strings)' do
+    get "/invoices/#{invoice.id}", as: :json
+    expect(response.parsed_body['amountPartner']).to be_a(Numeric)
+  end
+
+  it 'includes member name and address (type name number) from the connection' do
+    address = create(:address, address_type: 'Avenida', name: 'Fernando Daltro')
+    member = create(:member, name: 'Maria Souza')
+    conn = create(:connection, address:, member:, number: '123')
+    inv = create(:invoice, connection: conn)
+
+    get "/invoices/#{inv.id}", as: :json
+
+    expect(response.parsed_body['memberName']).to eq('Maria Souza')
+    expect(response.parsed_body['address']).to eq('Avenida Fernando Daltro 123')
   end
 
   it 'returns 404 for non-existent invoice' do

@@ -3,7 +3,7 @@ class InvoicesController < ApplicationController
   include Persistable
   include Destroyable
 
-  before_action :set_invoice, only: %i[show update destroy]
+  before_action :set_invoice, only: %i[show update destroy pay unpay]
 
   def generate
     generate_params = params.permit(:due_date, :reference_date, candidate_ids: [])
@@ -46,6 +46,18 @@ class InvoicesController < ApplicationController
   def update
     @invoice.assign_attributes(invoice_params)
     save_and_respond(@invoice, serializer: InvoiceSerializer)
+  end
+
+  # Baixa (recebimento): registra o pagamento na data informada (ou agora).
+  def pay
+    @invoice.update!(paid_at: params[:paid_at].presence || Time.current)
+    render json: InvoiceSerializer.new(@invoice)
+  end
+
+  # Estorno: volta a fatura para pendente.
+  def unpay
+    @invoice.update!(paid_at: nil)
+    render json: InvoiceSerializer.new(@invoice)
   end
 
   private

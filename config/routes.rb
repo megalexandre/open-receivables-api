@@ -14,7 +14,12 @@ Rails.application.routes.draw do
   end
   get  'invoice-candidates', to: 'invoice_candidates#index'
   post 'invoices/generate',  to: 'invoices#generate'
-  resources :invoices
+  resources :invoices do
+    member do
+      patch :pay
+      patch :unpay
+    end
+  end
 
   get    'water-quality', to: 'water_quality#index'
   post   'water-quality', to: 'water_quality#create'
