@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     member { patch :reactivate }
   end
   get  'invoice-candidates', to: 'invoice_candidates#index'
+  get  'election',           to: 'election#index'
   post 'invoices/generate',  to: 'invoices#generate'
   resources :invoices do
     member do
