@@ -1,26 +1,22 @@
 class WaterQualityController < ApplicationController
   include Paginatable
 
-  SORTABLE_COLUMNS = %w[reference parameter required analyzed conformity].freeze
+  SORT_COLUMNS = {
+    'reference'  => :reference_date,
+    'parameter'  => :parameter,
+    'required'   => :required_value,
+    'analyzed'   => :analyzed_value,
+    'conformity' => :conformity_value
+  }.freeze
 
   def index
     scope = WaterAnalysis.all
-    if params[:reference].present?
-      parts = params[:reference].split('/')
-      scope = scope.where(
-        'MONTH(reference_date) = ? AND YEAR(reference_date) = ?',
-        parts[0].to_i, parts[1].to_i
-      )
-    end
+    scope = scope.for_reference(params[:reference]) if params[:reference].present?
     render json: paginate(scope, serializer: WaterAnalysisSerializer)
   end
 
   def destroy
-    parts = params[:reference].to_s.split('/')
-    deleted = WaterAnalysis.where(
-      'MONTH(reference_date) = ? AND YEAR(reference_date) = ?',
-      parts[0].to_i, parts[1].to_i
-    ).delete_all
+    deleted = WaterAnalysis.for_reference(params[:reference]).delete_all
     render json: { deleted: deleted }
   end
 
@@ -49,13 +45,9 @@ class WaterQualityController < ApplicationController
   private
 
   def apply_sort(scope)
-    case params[:sort_by]
-    when 'reference'  then scope.order(reference_date: sort_direction)
-    when 'parameter'  then scope.order(parameter: sort_direction)
-    when 'required'   then scope.order(required_value: sort_direction)
-    when 'analyzed'   then scope.order(analyzed_value: sort_direction)
-    when 'conformity' then scope.order(conformity_value: sort_direction)
-    else scope.order(reference_date: :desc, parameter: :asc)
-    end
+    column = SORT_COLUMNS[params[:sort_by]]
+    return scope.order(reference_date: :desc, parameter: :asc) if column.nil?
+
+    scope.order(column => sort_direction)
   end
 end

@@ -48,15 +48,18 @@ class InvoicesController < ApplicationController
     save_and_respond(@invoice, serializer: InvoiceSerializer)
   end
 
-  # Baixa (recebimento): registra o pagamento na data informada (ou agora).
+  # Baixa (recebimento): registra o pagamento na data e forma informadas.
   def pay
-    @invoice.update!(paid_at: params[:paid_at].presence || Time.current)
+    @invoice.update!(
+      paid_at: params[:paid_at].presence || Time.current,
+      payment_method: params[:payment_method].presence || 'DINHEIRO'
+    )
     render json: InvoiceSerializer.new(@invoice)
   end
 
-  # Estorno: volta a fatura para pendente.
+  # Estorno: volta a fatura para pendente e limpa a forma de pagamento.
   def unpay
-    @invoice.update!(paid_at: nil)
+    @invoice.update!(paid_at: nil, payment_method: nil)
     render json: InvoiceSerializer.new(@invoice)
   end
 
@@ -75,6 +78,6 @@ class InvoicesController < ApplicationController
   end
 
   def invoice_params
-    params.expect(invoice: %i[connection_id due_date reference_date paid_at amount_partner amount_water])
+    params.expect(invoice: %i[connection_id due_date reference_date paid_at payment_method amount_partner amount_water])
   end
 end

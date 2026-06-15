@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_14_122042) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_15_112253) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "address_type", null: false
     t.datetime "created_at"
@@ -74,6 +74,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_14_122042) do
     t.string "deleted_by"
     t.date "due_date", null: false
     t.datetime "paid_at"
+    t.string "payment_method"
     t.date "reference_date"
     t.datetime "updated_at", null: false
     t.string "updated_by"

@@ -40,4 +40,41 @@ RSpec.describe 'WaterQuality', type: :request do
       expect(WaterAnalysis.count).to eq(2)
     end
   end
+
+  describe 'GET /water-quality' do
+    it 'filtra pela competência informada (MM/YYYY)' do
+      create(:water_analysis, parameter: 'Turbidez', reference_date: Date.new(2026, 6, 1))
+      create(:water_analysis, parameter: 'Turbidez', reference_date: Date.new(2026, 5, 1))
+
+      get '/water-quality', params: { reference: '06/2026' }
+
+      expect(response).to have_http_status(:ok)
+      references = response.parsed_body['data'].map { |a| a['reference'] }
+      expect(references).to eq(['06/2026'])
+    end
+
+    it 'ordena conforme sort_by/sort_order' do
+      create(:water_analysis, parameter: 'Turbidez', reference_date: Date.new(2026, 6, 1))
+      create(:water_analysis, parameter: 'Cloro Residual', reference_date: Date.new(2026, 6, 1))
+
+      get '/water-quality', params: { sort_by: 'parameter', sort_order: 'asc' }
+
+      parameters = response.parsed_body['data'].map { |a| a['parameter'] }
+      expect(parameters).to eq(['Cloro Residual', 'Turbidez'])
+    end
+  end
+
+  describe 'DELETE /water-quality' do
+    it 'remove apenas as análises da competência informada' do
+      create(:water_analysis, parameter: 'Turbidez', reference_date: Date.new(2026, 6, 1))
+      create(:water_analysis, parameter: 'Cloro Residual', reference_date: Date.new(2026, 6, 1))
+      create(:water_analysis, parameter: 'Turbidez', reference_date: Date.new(2026, 5, 1))
+
+      delete '/water-quality', params: { reference: '06/2026' }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['deleted']).to eq(2)
+      expect(WaterAnalysis.pluck(:reference_date).map { |d| d.strftime('%m/%Y') }).to eq(['05/2026'])
+    end
+  end
 end

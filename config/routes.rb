@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'caixa', to: 'caixa#index'
+
   get    'water-quality', to: 'water_quality#index'
   post   'water-quality', to: 'water_quality#create'
   delete 'water-quality', to: 'water_quality#destroy'
