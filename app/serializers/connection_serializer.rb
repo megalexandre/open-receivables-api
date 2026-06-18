@@ -13,6 +13,7 @@ class ConnectionSerializer
       active:             @connection.deleted_at.nil?,
       categoryId:         @connection.category_id,
       categoryName:       @connection.category.name,
+      categoryType:       @connection.category.member_type,
       value:              @connection.category.amount_water.to_f + @connection.category.amount_partner.to_f,
       number:             @connection.number,
       registrationDate:   @connection.registration_date,
