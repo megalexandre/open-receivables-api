@@ -6,7 +6,7 @@ gem "rails", "~> 8.1.3"
 gem "mysql2", "~> 0.5"
 gem "pagy", "~> 9.0"
 gem "money-rails", "~> 1.15"
-gem "jwt", "~> 2.9"
+gem "jwt", "~> 3.2"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
