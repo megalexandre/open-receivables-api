@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.1.3"
 # Use mysql as the database for Active Record
 gem "mysql2", "~> 0.5"
-gem "pagy", "~> 9.0"
+gem "pagy", "~> 43.4"
 gem "money-rails", "~> 1.15"
 gem "jwt", "~> 2.9"
 # Use the Puma web server [https://github.com/puma/puma]
